@@ -2,7 +2,7 @@
   <div>
     <h1>Home</h1>
     <v-btn @click="call">CALL</v-btn>
-    <AnimeList @nextItems="getNext" :items="animeList" />
+    <AnimeList @selectedItem="logit" @nextItems="getNext" :items="animeList" />
   </div>
 </template>
 
@@ -42,6 +42,9 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    logit(item) {
+      console.log(item)
     }
   }
 }
