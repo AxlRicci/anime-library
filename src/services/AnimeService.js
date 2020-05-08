@@ -11,7 +11,7 @@ const apiClient = axios.create({
 
 export default {
   // add call methods here. below is sample of form.
-  getAnime() {
-    return apiClient.get()
+  getData(params) {
+    return apiClient.get(params)
   }
 }

@@ -1,18 +1,48 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div>
+    <h1>Home</h1>
+    <v-btn @click="call">CALL</v-btn>
+    <AnimeList @nextItems="getNext" :items="animeList" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import AnimeService from '@/services/AnimeService.js'
+import AnimeList from '@/components/AnimeList'
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
-    HelloWorld
+    AnimeList
+  },
+  data() {
+    return {
+      data: {},
+      animeList: []
+    }
+  },
+  methods: {
+    call() {
+      AnimeService.getData('anime')
+        .then(response => {
+          this.data = response.data
+          this.animeList = response.data.data
+          console.log(this.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    getNext() {
+      console.log(this.data.links.next.split('/')[5])
+      AnimeService.getData(this.data.links.next.split('/')[5])
+        .then(response => {
+          this.data = response.data
+          this.animeList = this.animeList.concat(response.data.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   }
-};
+}
 </script>
