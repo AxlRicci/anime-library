@@ -1,9 +1,13 @@
 <template>
-  <div>
+  <v-container>
     <h1>Home</h1>
     <v-btn @click="call">CALL</v-btn>
-    <AnimeList @selectedItem="logit" @nextItems="getNext" :items="animeList" />
-  </div>
+    <AnimeList
+      @selectedItem="setSelectedAnime"
+      @nextItems="getNext"
+      :items="animeList"
+    />
+  </v-container>
 </template>
 
 <script>
